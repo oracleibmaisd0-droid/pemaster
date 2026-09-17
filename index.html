@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Indicador E-Master PERSONAL</title>
+
+<link
+    rel="icon"
+    href="https://img.icons8.com/fluency/10000/universe.png"
+>
+
+<link
+    href="https://fonts.cdnfonts.com/css/product-sans"
+    rel="stylesheet"
+>
+
+
+<style>
+
+
+/*
+==================================================
+ESTRUCTURA VISUAL
+==================================================
+*/
+
+body {
+
+    font-family:
+        'Product Sans',
+        sans-serif;
+
+    background:
+        #f5f5f5;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    padding:
+        20px;
+
+}
+
+
+/*
+==================================================
+TÍTULO
+==================================================
+*/
+
+h2 {
+
+    margin-bottom:
+        0px;
+
+    text-align:
+        center;
+
+}
+
+
+/*
+==================================================
+CÍRCULO
+==================================================
+*/
+
+#circulo-aspecto {
+
+    width:
+        30px;
+
+    height:
+        30px;
+
+    border-radius:
+        50%;
+
+    background-color:
+        grey;
+
+    transition:
+        background-color 0.5s ease;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-weight:
+        bold;
+
+    color:
+        white;
+
+    position:
+        relative;
+
+}
+
+
+/*
+==================================================
+CARGA
+==================================================
+*/
+
+.loading {
+
+    animation:
+        pulse 1s infinite;
+
+}
+
+
+@keyframes pulse {
+
+    0% {
+
+        opacity:
+            0.5;
+
+    }
+
+    50% {
+
+        opacity:
+            1;
+
+    }
+
+    100% {
+
+        opacity:
+            0.5;
+
+    }
+
+}
+
+
+/*
+==================================================
+ERROR
+==================================================
+*/
+
+.error {
+
+    background-color:
+        #555 !important;
+
+    animation:
+        none;
+
+    position:
+        relative;
+
+}
+
+
+.error::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        50%;
+
+    left:
+        50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width:
+        20px;
+
+    height:
+        20px;
+
+    background-image:
+
+        url(
+            'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><line x1="4" y1="4" x2="20" y2="20" stroke="white" stroke-width="2"/><line x1="20" y1="4" x2="4" y2="20" stroke="white" stroke-width="2"/></svg>'
+        );
+
+    background-size:
+        contain;
+
+    background-repeat:
+        no-repeat;
+
+}
+
+
+/*
+==================================================
+TEXTO
+==================================================
+*/
+
+h6 {
+
+    text-align:
+        justify;
+
+}
+
+
+h5 {
+
+    text-align:
+        justify;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<h2>
+    Aspecto de energía predominante PERSONAL
+</h2>
+
+
+<h6>
+
+El círculo muestra en tiempo real el estado del aspecto energético predominante personal mediante colores de estado, que van comprendidos entre un estado óptimo (verde) y un estado crítico (rojo). El efecto palpable es a nivel individual. Un estado óptimo indica que las energías influyentes suelen ser más positivas, mientras que un estado crítico muestra energías influyentes menos favorables o negativas que afectan a nivel personal. ESTO APUNTA A LA TENDENCIA INDIVIDUAL, PERO NO A LA COLECTIVA, MÁS ADELANTE SE DETALLARÁ LA REFERENCIA INDIVIDUAL Solo se tienen en cuenta las energías más importantes y principales, solo se calculan las energías aspectantes. Las energías pueden fluctuar en tiempos variables. Este indicador está configurado más concretamente para Daniel Fernández Galindo (Nombre adoptivo: Daniel Fernández García con DNI 48615937D), este dato es importante para el tratamiento de esta materia, algunas influencias personales pueden coincidir con el resto circundante debido a similitudes y otras por energías de gran envergadura. En este E-Master se calcula la energía total de 7 días, comprendido desde un día anterior hasta 7 días en adelante del día actual, a deferencia del E-Master General que calcula la energía mundial actual de un día debido a la diferencia de datos.
+
+</h6>
+
+
+<div
+    id="circulo-aspecto"
+    class="loading"
+></div>
+
+
+<script>
+
+
+/*
+==================================================
+API
+==================================================
+
+Swiss Calculation Engine
+Swiss Ephemeris
+
+La API pública proporciona:
+
+/v1/planetas
+/v1/casas
+==================================================
+*/
+
+const API_BASE =
+    "https://swiss-ephemeris-engine.onrender.com";
+
+
+/*
+==================================================
+CARTA NATAL
+==================================================
+
+04/06/1995
+22:50
+Murcia
+
+Coordenadas:
+37.9922
+-1.1307
+==================================================
+*/
+
+const cartaNatal = {
+
+    year:
+        1995,
+
+    month:
+        6,
+
+    day:
+        4,
+
+    hour:
+        22,
+
+    minute:
+        50,
+
+    lat:
+        37.9922,
+
+    lon:
+        -1.1307
+
+};
+
+
+/*
+==================================================
+PUNTOS NATALES
+==================================================
+*/
+
+const planetasPrincipales = [
+
+    "Sun",
+    "Moon",
+    "Mercury",
+    "Venus",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+    "Uranus",
+    "Neptune",
+    "Pluto",
+    "North Node",
+    "Ascendant",
+    "Midheaven"
+
+];
+
+
+/*
+==================================================
+CUERPOS TRANSITANTES
+==================================================
+
+Ascendente, Medio Cielo y Luna solamente
+se utilizan como puntos natales.
+
+La Luna NO se utiliza como cuerpo
+transitante porque sus aspectos duran
+muy pocas horas y se repiten numerosas
+veces durante el periodo.
+
+La Luna SÍ permanece como punto natal.
+
+==================================================
+*/
+
+const planetasTransitantes = [
+
+    "Sun",
+    "Mercury",
+    "Venus",
+    "Mars",
+    "Jupiter",
+    "Saturn",
+    "Uranus",
+    "Neptune",
+    "Pluto"
+
+];
+
+
+/*
+==================================================
+EQUIVALENCIAS
+==================================================
+*/
+
+const equivalenciasPlanetas = {
+
+    "sun":
+        "Sun",
+
+    "sol":
+        "Sun",
+
+
+    "moon":
+        "Moon",
+
+    "luna":
+        "Moon",
+
+
+    "mercury":
+        "Mercury",
+
+    "mercurio":
+        "Mercury",
+
+
+    "venus":
+        "Venus",
+
+
+    "mars":
+        "Mars",
+
+    "marte":
+        "Mars",
+
+
+    "jupiter":
+        "Jupiter",
+
+    "júpiter":
+        "Jupiter",
+
+
+    "saturn":
+        "Saturn",
+
+    "saturno":
+        "Saturn",
+
+
+    "uranus":
+        "Uranus",
+
+    "urano":
+        "Uranus",
+
+
+    "neptune":
+        "Neptune",
+
+    "neptuno":
+        "Neptune",
+
+
+    "pluto":
+        "Pluto",
+
+    "pluton":
+        "Pluto",
+
+    "plutón":
+        "Pluto",
+
+
+    /*
+    Nodo Norte.
+
+    La API devuelve Rahu.
+    */
+
+    "rahu":
+        "North Node",
+
+    "north node":
+        "North Node",
+
+    "north_node":
+        "North Node",
+
+    "northnode":
+        "North Node",
+
+    "node":
+        "North Node",
+
+    "true node":
+        "North Node",
+
+    "true_node":
+        "North Node",
+
+    "truenode":
+        "North Node",
+
+    "nodo norte":
+        "North Node",
+
+    "nodo_norte":
+        "North Node",
+
+    "nodo norte verdadero":
+        "North Node",
+
+
+    /*
+    Ascendente
+    */
+
+    "ascendant":
+        "Ascendant",
+
+    "asc":
+        "Ascendant",
+
+    "ascendente":
+        "Ascendant",
+
+
+    /*
+    Medio Cielo
+    */
+
+    "midheaven":
+        "Midheaven",
+
+    "mid heaven":
+        "Midheaven",
+
+    "mc":
+        "Midheaven",
+
+    "medio cielo":
+        "Midheaven",
+
+    "medio_cielo":
+        "Midheaven"
+
+};
+
+
+/*
+==================================================
+PONDERACIONES E-MASTER
+==================================================
+
+Cuadratura  = -2
+Oposición   = -1
+Conjunción  =  0
+Sextil      = +1
+Trígono     = +2
+==================================================
+*/
+
+const ponderacion = {
+
+    square:
+        -2,
+
+    opposition:
+        -1,
+
+    conjunction:
+        0,
+
+    sextile:
+        1,
+
+    trine:
+        2
+
+};
+
+
+/*
+==================================================
+ORB
+==================================================
+*/
+
+const orb =
+    8;
+
+
+/*
+==================================================
+NORMALIZAR ÁNGULO
+==================================================
+*/
+
+function normalizarAngulo(
+    angulo
+) {
+
+    angulo =
+        angulo % 360;
+
+
+    if (
+        angulo < 0
+    ) {
+
+        angulo +=
+            360;
+
+    }
+
+
+    return angulo;
+
+}
+
+
+/*
+==================================================
+DISTANCIA ANGULAR
+==================================================
+*/
+
+function distanciaAngular(
+    a,
+    b
+) {
+
+    let diferencia =
+
+        Math.abs(
+
+            normalizarAngulo(a) -
+            normalizarAngulo(b)
+
+        );
+
+
+    if (
+        diferencia > 180
+    ) {
+
+        diferencia =
+            360 -
+            diferencia;
+
+    }
+
+
+    return diferencia;
+
+}
+
+
+/*
+==================================================
+IDENTIFICAR ASPECTO
+==================================================
+*/
+
+function identificarAspecto(
+    distancia
+) {
+
+    const aspectos = [
+
+        {
+            nombre:
+                "conjunction",
+
+            grado:
+                0
+        },
+
+        {
+            nombre:
+                "sextile",
+
+            grado:
+                60
+        },
+
+        {
+            nombre:
+                "square",
+
+            grado:
+                90
+        },
+
+        {
+            nombre:
+                "trine",
+
+            grado:
+                120
+        },
+
+        {
+            nombre:
+                "opposition",
+
+            grado:
+                180
+        }
+
+    ];
+
+
+    let mejor =
+        null;
+
+
+    let menorOrb =
+        Infinity;
+
+
+    for (
+        const aspecto
+        of aspectos
+    ) {
+
+        const diferencia =
+
+            Math.abs(
+
+                distancia -
+                aspecto.grado
+
+            );
+
+
+        if (
+
+            diferencia <= orb &&
+
+            diferencia < menorOrb
+
+        ) {
+
+            menorOrb =
+                diferencia;
+
+            mejor =
+                aspecto.nombre;
+
+        }
+
+    }
+
+
+    return mejor;
+
+}
+
+
+/*
+==================================================
+NORMALIZAR NOMBRE
+==================================================
+*/
+
+function normalizarNombre(
+    nombre
+) {
+
+    if (
+        !nombre
+    ) {
+
+        return null;
+
+    }
+
+
+    const nombreNormalizado =
+
+        String(nombre)
+
+            .toLowerCase()
+
+            .trim()
+
+            .replace(
+                /-/g,
+                " "
+            )
+
+            .replace(
+                /_/g,
+                " "
+            )
+
+            .replace(
+                /\s+/g,
+                " "
+            );
+
+
+    return (
+
+        equivalenciasPlanetas[
+            nombreNormalizado
+        ] ||
+
+        null
+
+    );
+
+}
+
+
+/*
+==================================================
+EXTRAER POSICIONES
+==================================================
+*/
+
+function extraerPosiciones(
+    data
+) {
+
+    const resultado = {};
+
+
+    /*
+    ==============================================
+    PLANETAS
+    ==============================================
+    */
+
+    if (
+
+        data &&
+
+        data.planets &&
+
+        typeof data.planets ===
+            "object"
+
+    ) {
+
+        for (
+
+            const [
+                nombre,
+                valores
+            ]
+
+            of Object.entries(
+                data.planets
+            )
+
+        ) {
+
+            const canonico =
+                normalizarNombre(
+                    nombre
+                );
+
+
+            if (
+                !canonico
+            ) {
+
+                continue;
+
+            }
+
+
+            if (
+
+                valores &&
+
+                typeof valores.longitude ===
+                    "number"
+
+            ) {
+
+                resultado[
+                    canonico
+                ] =
+                    normalizarAngulo(
+                        valores.longitude
+                    );
+
+            }
+
+        }
+
+    }
+
+
+    /*
+    ==============================================
+    ASCENDENTE Y MEDIO CIELO
+    ==============================================
+    */
+
+    if (
+
+        data.houses &&
+
+        typeof data.houses ===
+            "object"
+
+    ) {
+
+        if (
+
+            typeof data.houses.ascendant ===
+                "number"
+
+        ) {
+
+            resultado[
+                "Ascendant"
+            ] =
+
+                normalizarAngulo(
+                    data.houses.ascendant
+                );
+
+        }
+
+
+        if (
+
+            typeof data.houses.mc ===
+                "number"
+
+        ) {
+
+            resultado[
+                "Midheaven"
+            ] =
+
+                normalizarAngulo(
+                    data.houses.mc
+                );
+
+        }
+
+    }
+
+
+    return resultado;
+
+}
+
+
+/*
+==================================================
+OBTENER PLANETAS
+==================================================
+*/
+
+async function obtenerPlanetas(
+    fecha
+) {
+
+    const url =
+
+        API_BASE +
+
+        "/v1/planets" +
+
+        "?datetime=" +
+
+        encodeURIComponent(
+            fecha.toISOString()
+        ) +
+
+        "&tropical=true";
+
+
+    const response =
+
+        await fetch(
+
+            url,
+
+            {
+
+                method:
+                    "GET",
+
+                cache:
+                    "no-store"
+
+            }
+
+        );
+
+
+    if (
+        !response.ok
+    ) {
+
+        throw new Error(
+
+            "HTTP planetas " +
+            response.status
+
+        );
+
+    }
+
+
+    return response.json();
+
+}
+
+
+/*
+==================================================
+OBTENER ASCENDENTE / MC
+==================================================
+*/
+
+async function obtenerAngulos(
+    fecha
+) {
+
+    const url =
+
+        API_BASE +
+
+        "/v1/houses" +
+
+        "?datetime=" +
+
+        encodeURIComponent(
+            fecha.toISOString()
+        ) +
+
+        "&lat=" +
+
+        cartaNatal.lat +
+
+        "&lon=" +
+
+        cartaNatal.lon +
+
+        "&hsys=P" +
+
+        "&tropical=true";
+
+
+    const response =
+
+        await fetch(
+
+            url,
+
+            {
+
+                method:
+                    "GET",
+
+                cache:
+                    "no-store"
+
+            }
+
+        );
+
+
+    if (
+        !response.ok
+    ) {
+
+        throw new Error(
+
+            "HTTP casas " +
+            response.status
+
+        );
+
+    }
+
+
+    return response.json();
+
+}
+
+
+/*
+==================================================
+OBTENER CARTA COMPLETA
+==================================================
+*/
+
+async function obtenerCarta(
+    fecha
+) {
+
+    const [
+
+        planetas,
+
+        angulos
+
+    ] =
+
+        await Promise.all([
+
+            obtenerPlanetas(
+                fecha
+            ),
+
+            obtenerAngulos(
+                fecha
+            )
+
+        ]);
+
+
+    const posiciones =
+        extraerPosiciones(
+            planetas
+        );
+
+
+    const posicionesAngulos =
+        extraerPosiciones(
+            angulos
+        );
+
+
+    Object.assign(
+
+        posiciones,
+
+        posicionesAngulos
+
+    );
+
+
+    return posiciones;
+
+}
+
+
+/*
+==================================================
+CARTA NATAL
+==================================================
+
+04/06/1995 22:50 Murcia
+
+En esa fecha:
+
+22:50 CEST
+=
+20:50 UTC
+==================================================
+*/
+
+async function obtenerCartaNatal() {
+
+    const fechaNatal =
+
+        new Date(
+
+            Date.UTC(
+
+                cartaNatal.year,
+
+                cartaNatal.month - 1,
+
+                cartaNatal.day,
+
+                20,
+
+                50,
+
+                0
+
+            )
+
+        );
+
+
+    return obtenerCarta(
+        fechaNatal
+    );
+
+}
+
+
+/*
+==================================================
+CREAR PERIODO
+==================================================
+
+Día anterior +7 días desde día actual
+
+Ejemplo:
+
+17 septiembre
+↓
+16 septiembre → 24 septiembre
+==================================================
+*/
+
+function crearPeriodo() {
+
+    const ahora =
+        new Date();
+
+
+    const inicio =
+
+        new Date(
+
+            Date.UTC(
+
+                ahora.getUTCFullYear(),
+
+                ahora.getUTCMonth(),
+
+                ahora.getUTCDate() - 1,
+
+                0,
+
+                0,
+
+                0
+
+            )
+
+        );
+
+
+    const fin =
+
+        new Date(
+
+            Date.UTC(
+
+                ahora.getUTCFullYear(),
+
+                ahora.getUTCMonth(),
+
+                ahora.getUTCDate() + 7,
+
+                23,
+
+                59,
+
+                59
+
+            )
+
+        );
+
+
+    return {
+
+        inicio:
+            inicio,
+
+        fin:
+            fin
+
+    };
+
+}
+
+
+/*
+==================================================
+CREAR MUESTRAS
+==================================================
+
+Cada 6 horas.
+
+La deduplicación posterior hace que
+un aspecto que permanezca activo
+varios días solamente cuente una vez.
+==================================================
+*/
+
+function generarMuestras(
+    inicio,
+    fin
+) {
+
+    const muestras = [];
+
+
+    const intervalo =
+
+        6 *
+        60 *
+        60 *
+        1000;
+
+
+    let actual =
+        new Date(inicio);
+
+
+    while (
+        actual <= fin
+    ) {
+
+        muestras.push(
+            new Date(actual)
+        );
+
+
+        actual =
+
+            new Date(
+
+                actual.getTime() +
+                intervalo
+
+            );
+
+    }
+
+
+    return muestras;
+
+}
+
+
+/*
+==================================================
+CALCULAR TRÁNSITOS
+==================================================
+*/
+
+function calcularTransitos(
+
+    posicionesTransit,
+
+    posicionesNatal
+
+) {
+
+    const aspectos = [];
+
+
+    for (
+
+        const planetaTransito
+
+        of planetasTransitantes
+
+    ) {
+
+        const longitudTransito =
+
+            posicionesTransit[
+                planetaTransito
+            ];
+
+
+        if (
+
+            typeof longitudTransito !==
+                "number"
+
+        ) {
+
+            continue;
+
+        }
+
+
+        for (
+
+            const puntoNatal
+
+            of planetasPrincipales
+
+        ) {
+
+            const longitudNatal =
+
+                posicionesNatal[
+                    puntoNatal
+                ];
+
+
+            if (
+
+                typeof longitudNatal !==
+                    "number"
+
+            ) {
+
+                continue;
+
+            }
+
+
+            const distancia =
+
+                distanciaAngular(
+
+                    longitudTransito,
+
+                    longitudNatal
+
+                );
+
+
+            const aspecto =
+
+                identificarAspecto(
+                    distancia
+                );
+
+
+            if (
+                !aspecto
+            ) {
+
+                continue;
+
+            }
+
+
+            const grados = {
+
+                conjunction:
+                    0,
+
+                sextile:
+                    60,
+
+                square:
+                    90,
+
+                trine:
+                    120,
+
+                opposition:
+                    180
+
+            };
+
+
+            const orbReal =
+
+                Math.abs(
+
+                    distancia -
+                    grados[aspecto]
+
+                );
+
+
+            aspectos.push({
+
+                transito:
+                    planetaTransito,
+
+                natal:
+                    puntoNatal,
+
+                aspecto:
+                    aspecto,
+
+                orb:
+                    orbReal
+
+            });
+
+        }
+
+    }
+
+
+    return aspectos;
+
+}
+
+
+/*
+==================================================
+CLAVE ÚNICA
+==================================================
+
+Un mismo:
+
+planeta tránsito
++
+punto natal
++
+aspecto
+
+solamente cuenta una vez.
+==================================================
+*/
+
+function claveAspecto(
+    aspecto
+) {
+
+    return [
+
+        aspecto.transito,
+
+        aspecto.natal,
+
+        aspecto.aspecto
+
+    ].join("|");
+
+}
+
+
+/*
+==================================================
+DEDUPLICAR
+==================================================
+*/
+
+function deduplicarAspectos(
+    aspectos
+) {
+
+    const mapa =
+        new Map();
+
+
+    for (
+        const aspecto
+        of aspectos
+    ) {
+
+        const clave =
+
+            claveAspecto(
+                aspecto
+            );
+
+
+        if (
+            !mapa.has(clave)
+        ) {
+
+            mapa.set(
+                clave,
+                aspecto
+            );
+
+        }
+
+
+        else {
+
+            const anterior =
+
+                mapa.get(
+                    clave
+                );
+
+
+            /*
+            Conservamos la aparición
+            con el menor orbe.
+            */
+
+            if (
+
+                aspecto.orb <
+                anterior.orb
+
+            ) {
+
+                mapa.set(
+                    clave,
+                    aspecto
+                );
+
+            }
+
+        }
+
+    }
+
+
+    return Array.from(
+        mapa.values()
+    );
+
+}
+
+
+/*
+==================================================
+CALCULAR ENERGÍA
+==================================================
+*/
+
+function calcularEnergia(
+    aspectos
+) {
+
+    let suma =
+        0;
+
+
+    for (
+        const aspecto
+        of aspectos
+    ) {
+
+        suma +=
+
+            ponderacion[
+                aspecto.aspecto
+            ] ?? 0;
+
+    }
+
+
+    const numeroAspectos =
+        aspectos.length;
+
+
+    let media =
+        0;
+
+
+    if (
+        numeroAspectos > 0
+    ) {
+
+        media =
+
+            suma /
+            numeroAspectos;
+
+    }
+
+
+    let porcentaje =
+        50;
+
+
+    if (
+        numeroAspectos > 0
+    ) {
+
+        porcentaje =
+
+            (
+                (media + 2) /
+                4
+            ) *
+            100;
+
+    }
+
+
+    porcentaje =
+
+        Math.max(
+
+            0,
+
+            Math.min(
+                100,
+                porcentaje
+            )
+
+        );
+
+
+    return {
+
+        suma:
+            suma,
+
+        numeroAspectos:
+            numeroAspectos,
+
+        media:
+            media,
+
+        porcentaje:
+            porcentaje
+
+    };
+
+}
+
+
+/*
+==================================================
+OBTENER COLOR
+==================================================
+*/
+
+function obtenerColor(
+    porcentaje
+) {
+
+    if (
+        porcentaje < 20
+    ) {
+
+        return "red";
+
+    }
+
+
+    if (
+        porcentaje < 40
+    ) {
+
+        return "orange";
+
+    }
+
+
+    if (
+        porcentaje < 60
+    ) {
+
+        return "yellow";
+
+    }
+
+
+    return "green";
+
+}
+
+
+/*
+==================================================
+ACTUALIZAR CÍRCULO
+==================================================
+*/
+
+async function actualizarCirculo() {
+
+    const circulo =
+
+        document.getElementById(
+            "circulo-aspecto"
+        );
+
+
+    /*
+    ESTADO DE CARGA
+    */
+
+    circulo.classList.add(
+        "loading"
+    );
+
+
+    circulo.classList.remove(
+        "error"
+    );
+
+
+    circulo.style.backgroundColor =
+        "grey";
+
+
+    try {
+
+
+        /*
+        ==========================================
+        1. CARTA NATAL
+        ==========================================
+        */
+
+        const posicionesNatal =
+
+            await obtenerCartaNatal();
+
+
+        /*
+        ==========================================
+        2. PERIODO
+        ==========================================
+        */
+
+        const periodo =
+            crearPeriodo();
+
+
+        /*
+        ==========================================
+        3. MUESTRAS
+        ==========================================
+        */
+
+        const muestras =
+
+            generarMuestras(
+
+                periodo.inicio,
+
+                periodo.fin
+
+            );
+
+
+        /*
+        ==========================================
+        4. TRÁNSITOS
+        ==========================================
+        */
+
+        const todosLosAspectos = [];
+
+
+        for (
+            const fecha
+            of muestras
+        ) {
+
+            const posicionesTransit =
+
+                await obtenerCarta(
+                    fecha
+                );
+
+
+            const aspectos =
+
+                calcularTransitos(
+
+                    posicionesTransit,
+
+                    posicionesNatal
+
+                );
+
+
+            todosLosAspectos.push(
+                ...aspectos
+            );
+
+        }
+
+
+        /*
+        ==========================================
+        5. ASPECTOS ÚNICOS
+        ==========================================
+        */
+
+        const aspectosUnicos =
+
+            deduplicarAspectos(
+
+                todosLosAspectos
+
+            );
+
+
+        /*
+        ==========================================
+        6. E-MASTER
+        ==========================================
+        */
+
+        const energia =
+
+            calcularEnergia(
+
+                aspectosUnicos
+
+            );
+
+
+        /*
+        ==========================================
+        7. COLOR
+        ==========================================
+        */
+
+        let color;
+
+
+        /*
+        Sin aspectos:
+
+        AZUL
+        */
+
+        if (
+            energia.numeroAspectos ===
+            0
+        ) {
+
+            color =
+                "blue";
+
+        }
+
+        else {
+
+            color =
+
+                obtenerColor(
+
+                    energia.porcentaje
+
+                );
+
+        }
+
+
+        /*
+        ==========================================
+        8. MOSTRAR
+        ==========================================
+        */
+
+        circulo.classList.remove(
+            "loading"
+        );
+
+
+        circulo.classList.remove(
+            "error"
+        );
+
+
+        circulo.style.backgroundColor =
+            color;
+
+
+    }
+
+
+    catch (error) {
+
+        /*
+        ==========================================
+        ERROR
+        ==========================================
+        */
+
+        console.error(
+            "Error E-Master:",
+            error
+        );
+
+
+        circulo.classList.remove(
+            "loading"
+        );
+
+
+        circulo.classList.add(
+            "error"
+        );
+
+
+        circulo.style.backgroundColor =
+            "#555";
+
+    }
+
+}
+
+
+/*
+==================================================
+INICIO
+==================================================
+*/
+
+actualizarCirculo();
+
+
+/*
+==================================================
+ACTUALIZACIÓN
+==================================================
+
+Cada hora.
+
+==================================================
+*/
+
+setInterval(
+
+    actualizarCirculo,
+
+    60 *
+    60 *
+    1000
+
+);
+
+
+</script>
+
+</body>
+
+</html>
