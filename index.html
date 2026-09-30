@@ -1,29 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<head>
-
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Indicador E-Master PERSONAL</title>
-
-<link
+<title>Indicador E-Master INDIVIDUAL</title><link
     rel="icon"
     href="https://raw.githubusercontent.com/IMAGESARCH/EMaster/refs/heads/main/EMaster.png"
->
-
-<link
+><link
     href="https://fonts.cdnfonts.com/css/product-sans"
     rel="stylesheet"
->
-
-
-<style>
+><style>
 
 
 /*
@@ -69,6 +54,301 @@ h2 {
 
     text-align:
         center;
+
+}
+
+
+/*
+==================================================
+FORMULARIO
+==================================================
+*/
+
+.formulario {
+
+    width:
+        100%;
+
+    max-width:
+        420px;
+
+    margin-top:
+        20px;
+
+    margin-bottom:
+        25px;
+
+}
+
+
+.campo {
+
+    position:
+        relative;
+
+    margin-bottom:
+        12px;
+
+}
+
+
+.campo label {
+
+    display:
+        block;
+
+    font-size:
+        12px;
+
+    margin-bottom:
+        5px;
+
+}
+
+
+.campo input {
+
+    width:
+        100%;
+
+    height:
+        40px;
+
+    padding:
+        0 12px;
+
+    border:
+        1px solid #ccc;
+
+    border-radius:
+        8px;
+
+    background:
+        white;
+
+    font-family:
+        'Product Sans',
+        sans-serif;
+
+    font-size:
+        14px;
+
+    outline:
+        none;
+
+}
+
+
+.campo input:focus {
+
+    border-color:
+        #888;
+
+}
+
+
+/*
+==================================================
+SUGERENCIAS
+==================================================
+*/
+
+#sugerencias {
+
+    position:
+        absolute;
+
+    top:
+        62px;
+
+    left:
+        0;
+
+    right:
+        0;
+
+    background:
+        white;
+
+    border:
+        1px solid #ddd;
+
+    border-radius:
+        8px;
+
+    overflow:
+        hidden;
+
+    z-index:
+        100;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0,0,0,0.10);
+
+    display:
+        none;
+
+}
+
+
+.sugerencia {
+
+    padding:
+        10px 12px;
+
+    cursor:
+        pointer;
+
+    border-bottom:
+        1px solid #eee;
+
+    text-align:
+        left;
+
+}
+
+
+.sugerencia:last-child {
+
+    border-bottom:
+        none;
+
+}
+
+
+.sugerencia:hover {
+
+    background:
+        #f5f5f5;
+
+}
+
+
+.sugerencia-nombre {
+
+    font-size:
+        14px;
+
+    color:
+        #222;
+
+}
+
+
+.sugerencia-info {
+
+    margin-top:
+        3px;
+
+    font-size:
+        11px;
+
+    color:
+        #888;
+
+}
+
+
+/*
+==================================================
+BOTÓN
+==================================================
+*/
+
+#calcular {
+
+    width:
+        100%;
+
+    height:
+        40px;
+
+    border:
+        none;
+
+    border-radius:
+        8px;
+
+    background:
+        #222;
+
+    color:
+        white;
+
+    font-family:
+        'Product Sans',
+        sans-serif;
+
+    font-size:
+        14px;
+
+    cursor:
+        pointer;
+
+}
+
+
+#calcular:hover {
+
+    background:
+        #333;
+
+}
+
+
+#calcular:disabled {
+
+    opacity:
+        0.5;
+
+    cursor:
+        default;
+
+}
+
+
+/*
+==================================================
+ESTADO
+==================================================
+*/
+
+#estado {
+
+    min-height: 18px;
+    margin-top: 7px;
+    font-size: 11px;
+    text-align: center;
+
+    color: #777;
+
+}
+
+
+/* CALCULANDO */
+
+#estado.calculando {
+
+    color: blue;
+
+}
+
+
+/* CÁLCULO FINALIZADO */
+
+#estado.exito {
+
+    color: green;
+
+}
+
+
+/* ERROR */
+
+#estado.error-estado {
+
+    color: red;
 
 }
 
@@ -229,55 +509,99 @@ h6 {
 }
 
 
-h5 {
-
-    text-align:
-        justify;
-
-}
-
-
-</style>
-
-</head>
-
+</style></head>
 
 <body>
+    
+    <h2>Aspecto de energía predominante INDIVIDUAL</h2>
 
-
-<h2>
-    Aspecto de energía predominante PERSONAL
-</h2>
-
-
-<h6>
-
-El círculo muestra en tiempo real el estado del aspecto energético predominante personal mediante colores de estado, que van comprendidos entre un estado óptimo (verde) y un estado crítico (rojo). El efecto palpable es a nivel individual. Un estado óptimo indica que las energías influyentes suelen ser más positivas, mientras que un estado crítico muestra energías influyentes menos favorables o negativas que afectan a nivel personal. ESTO APUNTA A LA TENDENCIA INDIVIDUAL (IDIOSINCRASIA), PERO NO A LA COLECTIVA, MÁS ADELANTE SE DETALLARÁ LA REFERENCIA INDIVIDUAL Solo se tienen en cuenta las energías más importantes y principales, solo se calculan las energías aspectantes. Las energías pueden fluctuar en tiempos variables. Este indicador está configurado más concretamente para Daniel Fernández Galindo (Nombre adoptivo: Daniel Fernández García con DNI 48615937D), este dato es importante para el tratamiento de esta materia, algunas influencias personales pueden coincidir con el resto circundante debido a similitudes y otras por energías de gran envergadura. En este E-Master se calcula la energía total de 7 días, comprendido desde un día anterior hasta 7 días en adelante del día actual, a diferencia del E-Master General que calcula la energía mundial actual de un día debido a la diferencia de datos.
+<h6>El círculo muestra en tiempo real el estado del aspecto energético predominante individual mediante colores de estado, que van comprendidos entre un estado óptimo (verde) y un estado crítico (rojo). El efecto palpable es a nivel personal. Un estado óptimo indica que las energías influyentes suelen ser más positivas, mientras que un estado crítico muestra energías influyentes menos favorables o negativas que afectan a nivel individual. ESTO APUNTA A LA TENDENCIA PERSONAL (IDIOSINCRASIA), PERO NO A LA COLECTIVA, MÁS ADELANTE PODRÁ INTRODUCIR SUS DATOS DE NACIMIENTO PARA EFECTUAR EL CÁLCULO DE LA ENERGÍA ACTUAL. Solo se tienen en cuenta las energías más importantes y principales, solo se calculan las energías aspectantes. Las energías pueden fluctuar en tiempos variables. Algunas influencias individuales pueden coincidir con el resto circundante debido a similitudes y otras por energías de gran envergadura. En este E-Master se calcula la energía total de 7 días, comprendido desde un día anterior hasta 7 días en adelante del día actual, a diferencia del E-Master General que calcula la energía mundial actual de un día debido a la diferencia de datos.
 
 </h6>
 
+<!--
+==================================================
+FORMULARIO
+==================================================
+-->
 
-<div
+<div class="formulario"><!-- FECHA -->
+
+<div class="campo">
+
+    <label for="fecha">
+        Fecha de nacimiento <font color="red"><b>*</b></font>&nbsp;&nbsp;&nbsp;<font color="grey">(Pulse icono para seleccionar)</font>
+    </label>
+
+    <input
+        type="date"
+        id="fecha">
+
+</div>
+
+
+<!-- HORA -->
+
+<div class="campo">
+
+    <label for="hora">
+        Hora de nacimiento&nbsp;&nbsp;&nbsp;<font color="grey">(Si no conoce la hora, deje la celda vacía, lo que equivale a menos precisión)</font>&nbsp;<font color="grey">(Pulse icono para seleccionar)</font></label>
+
+    <input
+        type="time"
+        id="hora"
+    >
+
+</div>
+
+
+<!-- LUGAR -->
+
+<div class="campo">
+
+    <label for="lugar">
+        Lugar de nacimiento <font color="red"><b>*</b></font>
+    </label>
+
+    <input
+        type="text"
+        id="lugar"
+        autocomplete="off"
+        placeholder="Escribe una localidad"
+    >
+
+    <div id="sugerencias"></div>
+
+</div>
+
+
+<!-- ESTADO -->
+
+<div id="estado"></div>
+
+
+<!-- BOTÓN -->
+
+<button
+    id="calcular"
+    type="button"
+>
+    CALCULAR
+</button>
+
+</div><!--
+==================================================
+CÍRCULO
+==================================================
+--><div
     id="circulo-aspecto"
     class="loading"
-></div>
-
-
-<script>
+></div><script>
 
 
 /*
 ==================================================
 API
-==================================================
-
-Swiss Calculation Engine
-Swiss Ephemeris
-
-La API pública proporciona:
-
-/v1/planetas
-/v1/casas
 ==================================================
 */
 
@@ -287,43 +611,84 @@ const API_BASE =
 
 /*
 ==================================================
-CARTA NATAL
+GEOCODIFICACIÓN
 ==================================================
 
-04/06/1995
-22:50
-Murcia
+Open-Meteo proporciona:
 
-Coordenadas:
-37.9922
--1.1307
+latitud
+longitud
+timezone
+
+La zona horaria será la del lugar
+seleccionado y no la del dispositivo.
 ==================================================
 */
 
-const cartaNatal = {
+const GEOCODING_API =
+    "https://geocoding-api.open-meteo.com/v1/search";
 
-    year:
-        1995,
 
-    month:
-        6,
+/*
+==================================================
+ELEMENTOS
+==================================================
+*/
 
-    day:
-        4,
+const fechaInput =
+    document.getElementById(
+        "fecha"
+    );
 
-    hour:
-        22,
 
-    minute:
-        50,
+const horaInput =
+    document.getElementById(
+        "hora"
+    );
 
-    lat:
-        37.9922,
 
-    lon:
-        -1.1307
+const lugarInput =
+    document.getElementById(
+        "lugar"
+    );
 
-};
+
+const sugerencias =
+    document.getElementById(
+        "sugerencias"
+    );
+
+
+const calcularBoton =
+    document.getElementById(
+        "calcular"
+    );
+
+
+const estado =
+    document.getElementById(
+        "estado"
+    );
+
+
+const circulo =
+    document.getElementById(
+        "circulo-aspecto"
+    );
+
+
+/*
+==================================================
+LUGAR SELECCIONADO
+==================================================
+*/
+
+let lugarSeleccionado =
+    null;
+
+
+let temporizadorBusqueda =
+    null;
 
 
 /*
@@ -354,18 +719,6 @@ const planetasPrincipales = [
 /*
 ==================================================
 CUERPOS TRANSITANTES
-==================================================
-
-Ascendente, Medio Cielo y Luna solamente
-se utilizan como puntos natales.
-
-La Luna NO se utiliza como cuerpo
-transitante porque sus aspectos duran
-muy pocas horas y se repiten numerosas
-veces durante el periodo.
-
-La Luna SÍ permanece como punto natal.
-
 ==================================================
 */
 
@@ -398,13 +751,11 @@ const equivalenciasPlanetas = {
     "sol":
         "Sun",
 
-
     "moon":
         "Moon",
 
     "luna":
         "Moon",
-
 
     "mercury":
         "Mercury",
@@ -412,10 +763,8 @@ const equivalenciasPlanetas = {
     "mercurio":
         "Mercury",
 
-
     "venus":
         "Venus",
-
 
     "mars":
         "Mars",
@@ -423,13 +772,11 @@ const equivalenciasPlanetas = {
     "marte":
         "Mars",
 
-
     "jupiter":
         "Jupiter",
 
     "júpiter":
         "Jupiter",
-
 
     "saturn":
         "Saturn",
@@ -437,20 +784,17 @@ const equivalenciasPlanetas = {
     "saturno":
         "Saturn",
 
-
     "uranus":
         "Uranus",
 
     "urano":
         "Uranus",
 
-
     "neptune":
         "Neptune",
 
     "neptuno":
         "Neptune",
-
 
     "pluto":
         "Pluto",
@@ -460,13 +804,6 @@ const equivalenciasPlanetas = {
 
     "plutón":
         "Pluto",
-
-
-    /*
-    Nodo Norte.
-
-    La API devuelve Rahu.
-    */
 
     "rahu":
         "North Node",
@@ -501,11 +838,6 @@ const equivalenciasPlanetas = {
     "nodo norte verdadero":
         "North Node",
 
-
-    /*
-    Ascendente
-    */
-
     "ascendant":
         "Ascendant",
 
@@ -514,11 +846,6 @@ const equivalenciasPlanetas = {
 
     "ascendente":
         "Ascendant",
-
-
-    /*
-    Medio Cielo
-    */
 
     "midheaven":
         "Midheaven",
@@ -540,14 +867,7 @@ const equivalenciasPlanetas = {
 
 /*
 ==================================================
-PONDERACIONES E-MASTER
-==================================================
-
-Cuadratura  = -2
-Oposición   = -1
-Conjunción  =  0
-Sextil      = +1
-Trígono     = +2
+PONDERACIONES
 ==================================================
 */
 
@@ -1014,7 +1334,9 @@ OBTENER ASCENDENTE / MC
 */
 
 async function obtenerAngulos(
-    fecha
+    fecha,
+    lat,
+    lon
 ) {
 
     const url =
@@ -1031,11 +1353,15 @@ async function obtenerAngulos(
 
         "&lat=" +
 
-        cartaNatal.lat +
+        encodeURIComponent(
+            lat
+        ) +
 
         "&lon=" +
 
-        cartaNatal.lon +
+        encodeURIComponent(
+            lon
+        ) +
 
         "&hsys=P" +
 
@@ -1087,7 +1413,9 @@ OBTENER CARTA COMPLETA
 */
 
 async function obtenerCarta(
-    fecha
+    fecha,
+    lat,
+    lon
 ) {
 
     const [
@@ -1105,7 +1433,9 @@ async function obtenerCarta(
             ),
 
             obtenerAngulos(
-                fecha
+                fecha,
+                lat,
+                lon
             )
 
         ]);
@@ -1139,37 +1469,45 @@ async function obtenerCarta(
 
 /*
 ==================================================
-CARTA NATAL
+CONVERTIR HORA LOCAL A UTC
 ==================================================
 
-04/06/1995 22:50 Murcia
+Utilizamos la zona horaria del lugar
+seleccionado.
 
-En esa fecha:
-
-22:50 CEST
-=
-20:50 UTC
+No utilizamos la zona horaria del
+dispositivo.
 ==================================================
 */
 
-async function obtenerCartaNatal() {
+function obtenerUTCDesdeHoraLocal(
+    year,
+    month,
+    day,
+    hour,
+    minute,
+    timezone
+) {
 
-    const fechaNatal =
+    /*
+    ----------------------------------------------
+    Primera aproximación:
+    construimos una fecha UTC con los mismos
+    números que la hora local.
+    ----------------------------------------------
+    */
+
+    const aproximacion =
 
         new Date(
 
             Date.UTC(
 
-                cartaNatal.year,
-
-                cartaNatal.month - 1,
-
-                cartaNatal.day,
-
-                20,
-
-                50,
-
+                year,
+                month - 1,
+                day,
+                hour,
+                minute,
                 0
 
             )
@@ -1177,8 +1515,266 @@ async function obtenerCartaNatal() {
         );
 
 
+    /*
+    ----------------------------------------------
+    Obtenemos qué hora representa esa fecha
+    UTC en la zona horaria del nacimiento.
+    ----------------------------------------------
+    */
+
+    const partes =
+
+        new Intl.DateTimeFormat(
+            "en-US",
+            {
+
+                timeZone:
+                    timezone,
+
+                year:
+                    "numeric",
+
+                month:
+                    "2-digit",
+
+                day:
+                    "2-digit",
+
+                hour:
+                    "2-digit",
+
+                minute:
+                    "2-digit",
+
+                second:
+                    "2-digit",
+
+                hourCycle:
+                    "h23"
+
+            }
+        ).formatToParts(
+            aproximacion
+        );
+
+
+    const valores = {};
+
+
+    for (
+        const parte
+        of partes
+    ) {
+
+        if (
+            parte.type !==
+            "literal"
+        ) {
+
+            valores[
+                parte.type
+            ] =
+                Number(
+                    parte.value
+                );
+
+        }
+
+    }
+
+
+    /*
+    ----------------------------------------------
+    Diferencia entre la hora solicitada y la
+    hora que obtenemos en esa zona.
+    ----------------------------------------------
+    */
+
+    const representada =
+
+        Date.UTC(
+
+            valores.year,
+
+            valores.month - 1,
+
+            valores.day,
+
+            valores.hour,
+
+            valores.minute,
+
+            valores.second
+
+        );
+
+
+    const objetivo =
+
+        Date.UTC(
+
+            year,
+            month - 1,
+            day,
+            hour,
+            minute,
+            0
+
+        );
+
+
+    const diferencia =
+        representada -
+        objetivo;
+
+
+    /*
+    ----------------------------------------------
+    Ajustamos la aproximación.
+    ----------------------------------------------
+    */
+
+    return new Date(
+
+        aproximacion.getTime() -
+        diferencia
+
+    );
+
+}
+
+
+/*
+==================================================
+OBTENER CARTA NATAL DINÁMICA
+==================================================
+*/
+
+async function obtenerCartaNatal() {
+
+    if (
+        !lugarSeleccionado
+    ) {
+
+        throw new Error(
+            "Selecciona un lugar de nacimiento."
+        );
+
+    }
+
+
+    const fecha =
+        fechaInput.value;
+
+
+    if (
+        !fecha
+    ) {
+
+        throw new Error(
+            "Introduce la fecha de nacimiento."
+        );
+
+    }
+
+
+    /*
+    ----------------------------------------------
+    HORA
+
+    Si está vacía:
+    12:00
+    ----------------------------------------------
+    */
+
+    let hora =
+        horaInput.value;
+
+
+    if (
+        !hora
+    ) {
+
+        hora =
+            "12:00";
+
+    }
+
+
+    const [
+        year,
+        month,
+        day
+    ] =
+        fecha.split("-")
+            .map(Number);
+
+
+    const [
+        hour,
+        minute
+    ] =
+        hora.split(":")
+            .map(Number);
+
+
+    /*
+    ----------------------------------------------
+    ZONA HORARIA
+    ----------------------------------------------
+    */
+
+    const timezone =
+        lugarSeleccionado.timezone;
+
+
+    if (
+        !timezone
+    ) {
+
+        throw new Error(
+            "No se pudo determinar la zona horaria del lugar."
+        );
+
+    }
+
+
+    /*
+    ----------------------------------------------
+    CONVERSIÓN LOCAL → UTC
+    ----------------------------------------------
+    */
+
+    const fechaUTC =
+
+        obtenerUTCDesdeHoraLocal(
+
+            year,
+            month,
+            day,
+
+            hour,
+            minute,
+
+            timezone
+
+        );
+
+
+    /*
+    ----------------------------------------------
+    CARTA NATAL
+    ----------------------------------------------
+    */
+
     return obtenerCarta(
-        fechaNatal
+
+        fechaUTC,
+
+        lugarSeleccionado.lat,
+
+        lugarSeleccionado.lon
+
     );
 
 }
@@ -1187,15 +1783,6 @@ async function obtenerCartaNatal() {
 /*
 ==================================================
 CREAR PERIODO
-==================================================
-
-Día anterior +7 días desde día actual
-
-Ejemplo:
-
-17 septiembre
-↓
-16 septiembre → 24 septiembre
 ==================================================
 */
 
@@ -1218,9 +1805,7 @@ function crearPeriodo() {
                 ahora.getUTCDate() - 1,
 
                 0,
-
                 0,
-
                 0
 
             )
@@ -1241,9 +1826,7 @@ function crearPeriodo() {
                 ahora.getUTCDate() + 7,
 
                 23,
-
                 59,
-
                 59
 
             )
@@ -1266,14 +1849,7 @@ function crearPeriodo() {
 
 /*
 ==================================================
-CREAR MUESTRAS
-==================================================
-
-Cada 6 horas.
-
-La deduplicación posterior hace que
-un aspecto que permanezca activo
-varios días solamente cuente una vez.
+GENERAR MUESTRAS
 ==================================================
 */
 
@@ -1294,7 +1870,9 @@ function generarMuestras(
 
 
     let actual =
-        new Date(inicio);
+        new Date(
+            inicio
+        );
 
 
     while (
@@ -1302,7 +1880,9 @@ function generarMuestras(
     ) {
 
         muestras.push(
-            new Date(actual)
+            new Date(
+                actual
+            )
         );
 
 
@@ -1358,7 +1938,7 @@ function calcularTransitos(
         if (
 
             typeof longitudTransito !==
-                "number"
+            "number"
 
         ) {
 
@@ -1385,7 +1965,7 @@ function calcularTransitos(
             if (
 
                 typeof longitudNatal !==
-                    "number"
+                "number"
 
             ) {
 
@@ -1481,17 +2061,6 @@ function calcularTransitos(
 ==================================================
 CLAVE ÚNICA
 ==================================================
-
-Un mismo:
-
-planeta tránsito
-+
-punto natal
-+
-aspecto
-
-solamente cuenta una vez.
-==================================================
 */
 
 function claveAspecto(
@@ -1548,7 +2117,6 @@ function deduplicarAspectos(
 
         }
 
-
         else {
 
             const anterior =
@@ -1557,11 +2125,6 @@ function deduplicarAspectos(
                     clave
                 );
 
-
-            /*
-            Conservamos la aparición
-            con el menor orbe.
-            */
 
             if (
 
@@ -1630,7 +2193,6 @@ function calcularEnergia(
     ) {
 
         media =
-
             suma /
             numeroAspectos;
 
@@ -1733,22 +2295,376 @@ function obtenerColor(
 
 /*
 ==================================================
-ACTUALIZAR CÍRCULO
+BUSCAR LUGARES
+==================================================
+*/
+
+async function buscarLugares(
+    texto
+) {
+
+    if (
+        texto.length < 2
+    ) {
+
+        sugerencias.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    try {
+
+        const url =
+
+            GEOCODING_API +
+
+            "?" +
+
+            new URLSearchParams({
+
+                name:
+                    texto,
+
+                count:
+                    "8",
+
+                language:
+                    "es",
+
+                format:
+                    "json"
+
+            });
+
+
+        const response =
+            await fetch(
+                url
+            );
+
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error(
+                "HTTP geocoding " +
+                response.status
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        mostrarSugerencias(
+            data.results || []
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Error buscando lugares:",
+            error
+        );
+
+        sugerencias.style.display =
+            "none";
+
+    }
+
+}
+
+
+/*
+==================================================
+MOSTRAR SUGERENCIAS
+==================================================
+*/
+
+function mostrarSugerencias(
+    lugares
+) {
+
+    sugerencias.innerHTML =
+        "";
+
+
+    if (
+        lugares.length === 0
+    ) {
+
+        sugerencias.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    for (
+        const lugar
+        of lugares
+    ) {
+
+        const elemento =
+
+            document.createElement(
+                "div"
+            );
+
+
+        elemento.className =
+            "sugerencia";
+
+
+        const nombre =
+
+            document.createElement(
+                "div"
+            );
+
+
+        nombre.className =
+            "sugerencia-nombre";
+
+
+        nombre.textContent =
+            lugar.name;
+
+
+        const informacion =
+
+            document.createElement(
+                "div"
+            );
+
+
+        informacion.className =
+            "sugerencia-info";
+
+
+        const partes = [];
+
+
+        if (
+            lugar.admin1
+        ) {
+
+            partes.push(
+                lugar.admin1
+            );
+
+        }
+
+
+        if (
+            lugar.country
+        ) {
+
+            partes.push(
+                lugar.country
+            );
+
+        }
+
+
+        informacion.textContent =
+            partes.join(
+                ", "
+            );
+
+
+        elemento.appendChild(
+            nombre
+        );
+
+
+        elemento.appendChild(
+            informacion
+        );
+
+
+        elemento.addEventListener(
+            "click",
+            function() {
+
+                seleccionarLugar(
+                    lugar
+                );
+
+            }
+        );
+
+
+        sugerencias.appendChild(
+            elemento
+        );
+
+    }
+
+
+    sugerencias.style.display =
+        "block";
+
+}
+
+
+/*
+==================================================
+SELECCIONAR LUGAR
+==================================================
+*/
+
+function seleccionarLugar(
+    lugar
+) {
+
+    lugarSeleccionado = {
+
+        nombre:
+            lugar.name,
+
+        lat:
+            Number(
+                lugar.latitude
+            ),
+
+        lon:
+            Number(
+                lugar.longitude
+            ),
+
+        timezone:
+            lugar.timezone
+
+    };
+
+
+    const texto = [
+
+        lugar.name,
+
+        lugar.admin1,
+
+        lugar.country
+
+    ]
+    .filter(Boolean)
+    .join(
+        ", "
+    );
+
+
+    lugarInput.value =
+        texto;
+
+
+    sugerencias.style.display =
+        "none";
+
+
+    estado.textContent =
+        "Lugar seleccionado";
+
+}
+
+
+/*
+==================================================
+AUTOCOMPLETE
+==================================================
+*/
+
+lugarInput.addEventListener(
+    "input",
+    function() {
+
+        lugarSeleccionado =
+            null;
+
+
+        estado.textContent =
+            "";
+
+
+        clearTimeout(
+            temporizadorBusqueda
+        );
+
+
+        const texto =
+            lugarInput.value.trim();
+
+
+        if (
+            texto.length < 2
+        ) {
+
+            sugerencias.style.display =
+                "none";
+
+            return;
+
+        }
+
+
+        temporizadorBusqueda =
+
+            setTimeout(
+                function() {
+
+                    buscarLugares(
+                        texto
+                    );
+
+                },
+                300
+            );
+
+    }
+);
+
+
+/*
+==================================================
+CLICK FUERA
+==================================================
+*/
+
+document.addEventListener(
+    "click",
+    function(evento) {
+
+        if (
+            !evento.target.closest(
+                ".campo"
+            )
+        ) {
+
+            sugerencias.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+/*
+==================================================
+CALCULAR
 ==================================================
 */
 
 async function actualizarCirculo() {
-
-    const circulo =
-
-        document.getElementById(
-            "circulo-aspecto"
-        );
-
-
-    /*
-    ESTADO DE CARGA
-    */
 
     circulo.classList.add(
         "loading"
@@ -1762,6 +2678,16 @@ async function actualizarCirculo() {
 
     circulo.style.backgroundColor =
         "grey";
+
+
+    calcularBoton.disabled =
+        true;
+
+
+    estado.textContent =
+        "Calculando…";
+        estado.className =
+    "calculando";
 
 
     try {
@@ -1811,7 +2737,8 @@ async function actualizarCirculo() {
         ==========================================
         */
 
-        const todosLosAspectos = [];
+        const todosLosAspectos =
+            [];
 
 
         for (
@@ -1822,7 +2749,22 @@ async function actualizarCirculo() {
             const posicionesTransit =
 
                 await obtenerCarta(
-                    fecha
+
+                    fecha,
+
+                    /*
+                    Para los tránsitos solo necesitamos
+                    posiciones planetarias y no utilizamos
+                    realmente ASC/MC como tránsito.
+
+                    Aun así, usamos las coordenadas natales
+                    para mantener el comportamiento original.
+                    */
+
+                    lugarSeleccionado.lat,
+
+                    lugarSeleccionado.lon
+
                 );
 
 
@@ -1883,12 +2825,6 @@ async function actualizarCirculo() {
         let color;
 
 
-        /*
-        Sin aspectos:
-
-        AZUL
-        */
-
         if (
             energia.numeroAspectos ===
             0
@@ -1932,16 +2868,16 @@ async function actualizarCirculo() {
             color;
 
 
+        estado.textContent =
+            "Cálculo finalizado";
+            estado.className =
+    "exito";
+
+
     }
 
 
     catch (error) {
-
-        /*
-        ==========================================
-        ERROR
-        ==========================================
-        */
 
         console.error(
             "Error E-Master:",
@@ -1962,6 +2898,20 @@ async function actualizarCirculo() {
         circulo.style.backgroundColor =
             "#555";
 
+
+        estado.textContent =
+            "No se pudo realizar el cálculo";
+            estado.className =
+    "error-estado";
+
+    }
+
+
+    finally {
+
+        calcularBoton.disabled =
+            false;
+
     }
 
 }
@@ -1969,36 +2919,30 @@ async function actualizarCirculo() {
 
 /*
 ==================================================
-INICIO
+BOTÓN
 ==================================================
 */
 
-actualizarCirculo();
+calcularBoton.addEventListener(
+    "click",
+    actualizarCirculo
+);
 
 
 /*
 ==================================================
-ACTUALIZACIÓN
-==================================================
-
-Cada hora.
-
+ESTADO INICIAL
 ==================================================
 */
 
-setInterval(
-
-    actualizarCirculo,
-
-    60 *
-    60 *
-    1000
-
+circulo.classList.remove(
+    "loading"
 );
+
+circulo.style.backgroundColor =
+    "grey";
 
 
 </script>
-
 </body>
-
 </html>
