@@ -22,7 +22,6 @@
     rel="stylesheet"
 >
 
-
 <style>
 
 
@@ -32,29 +31,61 @@ ESTRUCTURA VISUAL
 ==================================================
 */
 
-body {
+html {
+  min-height: 100%;
+  background-color: #ffffff;
+  color: #000000;
+  color-scheme: light;
 
-    font-family:
-        'Product Sans',
-        sans-serif;
-
-    background:
-        #f5f5f5;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    padding:
-        20px;
-
+  transition:
+    background-color 1.5s ease-in-out,
+    color 1.5s ease-in-out;
 }
 
+body {
+  font-family: 'Product Sans', sans-serif;
+  padding: 20px;
+  background: transparent;
+  color: inherit;
+  padding-top: 50px;
+  transition: color 1.5s ease-in-out;
+}
+
+html.modo-oscuro {
+  background-color: #000000;
+  color: #ffffff;
+  color-scheme: dark;
+}
+
+html.modo-claro {
+  background-color: #ffffff;
+  color: #000000;
+  color-scheme: light;
+}
+
+#controlTema {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+:root {
+    --glass-switch-on: #2196f3;
+}
+
+.textoTema {
+    text-align: center;
+    font-size: 11px;
+    font-family: 'Product Sans', sans-serif;
+    color: inherit;
+    margin-top: 5px;
+    opacity: 0.75;
+}
 
 /*
 ==================================================
@@ -236,14 +267,22 @@ h5 {
 
 }
 
+#circulo-aspecto {
+    margin: 20px auto;
+}
 
 </style>
 
 </head>
 
+<script type="module" src="https://cdn.jsdelivr.net/npm/glassy-liquid@0.1/dist/glassy-liquid.min.js"></script>
 
 <body>
 
+    <div id="controlTema">
+  <glass-switch id="interruptorTema"></glass-switch>
+    <div class="textoTema">Modo oscuro</div>
+    </div>
 
 <h2>
     Aspecto de energía predominante PERSONAL
@@ -1997,6 +2036,281 @@ setInterval(
 );
 
 
+</script>
+
+<script>
+
+let modoManual = false;
+
+(async function() {
+
+  const HORA_OSCURA = 20;
+  const HORA_CLARA = 8;
+
+  const DURACION_TRANSICION = 1500;
+
+  let horaInternet = null;
+  let zonaHoraria = null;
+
+  let instanteInicial = null;
+  let relojInicial = null;
+
+  let ultimaSincronizacion = 0;
+  let sincronizando = false;
+
+  const raiz = document.documentElement;
+
+  // Configurar el color de la barra del navegador
+  let meta = document.querySelector(
+    'meta[name="theme-color"]'
+  );
+
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.name = 'theme-color';
+    document.head.appendChild(meta);
+  }
+
+  // Aplicar el tema
+  function aplicarModo(hora) {
+
+    const oscuro =
+      hora >= HORA_OSCURA || hora < HORA_CLARA;
+
+    raiz.classList.toggle('modo-oscuro', oscuro);
+    raiz.classList.toggle('modo-claro', !oscuro);
+
+    meta.content = oscuro ? '#000000' : '#ffffff';
+  }
+
+  // Obtener hora local del dispositivo
+  function obtenerHoraDispositivo() {
+
+    return new Date().getHours();
+  }
+
+  // Obtener hora de Internet sincronizada
+  function obtenerHoraActualInternet() {
+
+    if (
+      horaInternet === null ||
+      !zonaHoraria ||
+      relojInicial === null
+    ) {
+      return null;
+    }
+
+    const instanteActual =
+      instanteInicial +
+      (performance.now() - relojInicial);
+
+    const fecha = new Date(instanteActual);
+
+    const partes = new Intl.DateTimeFormat('es-ES', {
+      timeZone: zonaHoraria,
+      hour: '2-digit',
+      hourCycle: 'h23'
+    }).formatToParts(fecha);
+
+    const parteHora = partes.find(
+      parte => parte.type === 'hour'
+    );
+
+    return parteHora ? Number(parteHora.value) : null;
+  }
+
+// Seleccionar automáticamente la fuente horaria
+function actualizarModo() {
+
+    // Respetar siempre la selección manual
+    if (modoManual) return;
+
+    const hora = obtenerHoraActualInternet();
+
+    if (hora !== null && Number.isFinite(hora)) {
+      aplicarModo(hora);
+    } else {
+      aplicarModo(obtenerHoraDispositivo());
+    }
+}
+
+  // Sincronizar con la hora de Internet mediante IP
+  async function sincronizarHoraInternet() {
+
+    if (sincronizando) return;
+
+    sincronizando = true;
+
+    const controlador = new AbortController();
+
+    const timeout = setTimeout(
+      () => controlador.abort(),
+      6000
+    );
+
+    try {
+
+      const respuesta = await fetch(
+        'https://worldtime.timezone.io/api/ip',
+        {
+          method: 'GET',
+          cache: 'no-store',
+          signal: controlador.signal
+        }
+      );
+
+      if (!respuesta.ok) {
+        throw new Error(
+          'Error HTTP: ' + respuesta.status
+        );
+      }
+
+      const datos = await respuesta.json();
+
+      if (!datos.datetime || !datos.timezone) {
+        throw new Error('Respuesta horaria incompleta');
+      }
+
+      const instante = Date.parse(datos.datetime);
+
+      if (!Number.isFinite(instante)) {
+        throw new Error('Fecha de Internet inválida');
+      }
+
+      // Comprobar que la zona horaria sea válida
+      new Intl.DateTimeFormat('es-ES', {
+        timeZone: datos.timezone
+      });
+
+      // Guardar referencia horaria
+      horaInternet = instante;
+      zonaHoraria = datos.timezone;
+
+      instanteInicial = instante;
+      relojInicial = performance.now();
+
+      ultimaSincronizacion = Date.now();
+
+      console.info(
+        'Hora sincronizada mediante IP:',
+        datos.datetime,
+        datos.timezone
+      );
+
+      // Aplicar inmediatamente el tema correcto
+      actualizarModo();
+
+    } catch (error) {
+
+      console.warn(
+        'No se pudo obtener la hora de Internet. ' +
+        'Se utilizará la hora del dispositivo.',
+        error
+      );
+
+      horaInternet = null;
+      zonaHoraria = null;
+      instanteInicial = null;
+      relojInicial = null;
+
+      actualizarModo();
+
+    } finally {
+
+      clearTimeout(timeout);
+      sincronizando = false;
+
+    }
+  }
+
+  /*
+    1. Aplicar inmediatamente la hora del dispositivo.
+    Así no esperamos a que responda Internet.
+  */
+
+  actualizarModo();
+
+  /*
+    2. Sincronizar con Internet mediante IP.
+  */
+
+  await sincronizarHoraInternet();
+
+  /*
+    3. Actualizar el tema cada minuto.
+    No realizamos peticiones de red cada minuto.
+  */
+
+  setInterval(actualizarModo, 60000);
+
+  /*
+    4. Volver a sincronizar con Internet cada 6 horas.
+  */
+
+  setInterval(() => {
+
+    sincronizarHoraInternet();
+
+  }, 6 * 60 * 60 * 1000);
+
+  /*
+    5. Actualizar al regresar a la página.
+  */
+
+  document.addEventListener(
+    'visibilitychange',
+    () => {
+
+      if (!document.hidden) {
+
+        actualizarModo();
+
+        // Si han pasado más de 6 horas, resincronizar
+        if (
+          Date.now() - ultimaSincronizacion >
+          6 * 60 * 60 * 1000
+        ) {
+          sincronizarHoraInternet();
+        }
+
+      }
+
+    }
+  );
+
+})();
+</script>
+
+<script>
+const interruptorTema = document.getElementById('interruptorTema');
+
+interruptorTema.addEventListener('change', () => {
+
+    // Activar prioridad manual
+    modoManual = true;
+
+    // Vibración breve
+    if (navigator.vibrate) {
+        navigator.vibrate(20);
+    }
+
+    // Aplicar el tema seleccionado
+    if (interruptorTema.checked) {
+        document.documentElement.classList.add('modo-oscuro');
+        document.documentElement.classList.remove('modo-claro');
+    } else {
+        document.documentElement.classList.add('modo-claro');
+        document.documentElement.classList.remove('modo-oscuro');
+    }
+
+    // Actualizar el color del navegador
+    const metaTema = document.querySelector('meta[name="theme-color"]');
+
+    if (metaTema) {
+        metaTema.content = interruptorTema.checked ? '#000000' : '#ffffff';
+    }
+
+});
 </script>
 
 </body>
